@@ -1,4 +1,5 @@
-/* Copyright (c) 2007-2016 MIT 6.005 course staff, all rights reserved.
+/** 
+ * Copyright (c) 2007-2016 MIT 6.005 course staff, all rights reserved. 
  * Redistribution of original or derived work requires permission of course staff.
  */
 package rules;
@@ -14,7 +15,7 @@ public class RulesOf6005 {
      * set or team project) or not, according to the 6.005 collaboration policy.
      * 
      * @param writtenByYourself true if the code in question was written by
-     *        yourself or, in the case of a team project, your teammates,
+     *        yourself or, in the case of a team project, your team mates,
      *        otherwise false.
      * @param availableToOthers if not writtenByYourself, whether or not the
      *        code in question is available to all other students in the class.
@@ -37,8 +38,9 @@ public class RulesOf6005 {
             boolean citingYourSource, boolean implementationRequired) {
         
         // TODO: Fill in this method, then remove the exception
+    	return writtenByYourself  || writtenAsCourseWork
+    			 || implementationRequired ||  citingYourSource || !availableToOthers ;
         
-        throw new RuntimeException("implement me!");
     }
     
     /**
