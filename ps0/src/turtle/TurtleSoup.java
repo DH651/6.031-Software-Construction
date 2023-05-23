@@ -68,6 +68,7 @@ public class TurtleSoup {
      * @param sideLength length of each side
      */
     public static void drawRegularPolygon(Turtle turtle, int sides, int sideLength) {
+        
         throw new RuntimeException("implement me!");
     }
 
@@ -92,7 +93,28 @@ public class TurtleSoup {
      */
     public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
                                                  int targetX, int targetY) {
-        throw new RuntimeException("implement me!");
+        /**   (Use north clockwise hence use atan2(x,y))
+         * 1. Compute heading of target location 
+         * 2. Compute difference between Current Heading and Target Heading
+         * 3. Depending on the difference Heading towards the target point
+         */
+        double targetHeading;
+        double difference;
+        double headingToPoint;
+        double relativeX , relativeY;
+        
+        relativeX = targetX - currentX;
+        relativeY = targetY - currentY;
+        targetHeading = Math.toDegrees(Math.atan2(relativeX,relativeY));
+        difference = targetHeading - currentHeading ;
+   
+        if(difference >=0) {
+            headingToPoint = difference;
+        }else {
+            headingToPoint = 360 - Math.abs(difference);
+        }
+        
+        return headingToPoint;
     }
 
     /**
@@ -110,7 +132,22 @@ public class TurtleSoup {
      *         otherwise of size (# of points) - 1
      */
     public static List<Double> calculateHeadings(List<Integer> xCoords, List<Integer> yCoords) {
-        throw new RuntimeException("implement me!");
+        List<Double> headingAdjustments = new ArrayList<Double>();
+        double currentHeading = 0.0;
+        int currentX,currentY,nextX,nextY;
+        
+        currentX = xCoords.get(0);
+        currentY = yCoords.get(0);
+        for(int i = 1; i < xCoords.size(); i++) {
+            nextX = xCoords.get(i);
+            nextY = yCoords.get(i);
+            currentHeading = calculateHeadingToPoint(currentHeading,currentX,currentY,nextX,nextY);
+            headingAdjustments.add(currentHeading);
+            currentX = nextX;
+            currentY = nextY;
+        }
+        
+        return headingAdjustments;
     }
 
     /**
@@ -133,8 +170,9 @@ public class TurtleSoup {
      * @param args unused
      */
     public static void main(String args[]) {
+        
         DrawableTurtle turtle = new DrawableTurtle();
-
+         
         drawSquare(turtle, 40);
 
         // draw the window
